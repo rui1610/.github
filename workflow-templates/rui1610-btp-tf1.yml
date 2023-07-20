@@ -3,19 +3,19 @@ name: TF sample - dev/test/prod setup
 on:
   workflow_dispatch:
 
-inputs:
-      GLOBALACCOUNT:
-        description: "Your Global account subdomain"
-        required: true
-      REGION:
-        description: "Region for the sub account"
-        # Ensure to apply change in step2_usecase.json for destination attribute "URL"
-        default: "us10"
-        required: true
-      IDP_TENANT:
-        description: "Your IDP tenant"
-        default: "xxxxxxx.accounts.ondemand.com"
-        required: true
+    inputs:
+          GLOBALACCOUNT:
+            description: "Your Global account subdomain"
+            required: true
+          REGION:
+            description: "Region for the sub account"
+            # Ensure to apply change in step2_usecase.json for destination attribute "URL"
+            default: "us10"
+            required: true
+          IDP_TENANT:
+            description: "Your IDP tenant"
+            default: "xxxxxxx.accounts.ondemand.com"
+            required: true
 
 env:
   DIRECTORY_NAME: SAP BTP samples
