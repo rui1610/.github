@@ -38,7 +38,7 @@ jobs:
     - name: Get code from External repo
       run: |
         git clone ${{ env.GITHUB_SAMPLES_REPO }} ${{ env.FOLDER_CLONED_CODE }}
-        cd ${{ env.FOLDER_CLONED_CODE }}
+        cd ${{ env.FOLDER_CLONED_CODE }}/
         echo "custom_idp=${{env.IDP_TENANT}}" >  ${{ env.TF_VARS_FILE}}        
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
@@ -46,21 +46,24 @@ jobs:
         terraform_wrapper: false
     - name: Terraform Init
       id: init
-      working-directory:  ${{ env.FOLDER_CLONED_CODE }}/${{env.GITHUB_SAMPLES_FOLDER}}
+      working-directory:  "${{ env.FOLDER_CLONED_CODE }}/${{env.GITHUB_SAMPLES_FOLDER}}"
       shell: bash
       run: |
+        pwd
+        ls -l
         echo "Running terraform script in dir: ${{ env.FOLDER_CLONED_CODE }}/${{env.GITHUB_SAMPLES_FOLDER}}"
         terraform init
     - name: Terraform Apply
       id: terraform_apply
-      working-directory:  ${{ env.FOLDER_CLONED_CODE }}/${{env.GITHUB_SAMPLES_FOLDER}}
+      working-directory:  "${{ env.FOLDER_CLONED_CODE }}/${{env.GITHUB_SAMPLES_FOLDER}}"
       env:      
         TARGET_BRANCH: ${{ env.TARGET_BRANCH }}
         BTP_USERNAME: ${{ secrets.BTP_USERNAME }}
         BTP_PASSWORD: ${{ secrets.BTP_PASSWORD }}
         CF_USER: ${{ secrets.BTP_USERNAME }}
         CF_PASSWORD: ${{ secrets.BTP_PASSWORD }}
-      run: |
-        echo "Running terraform script in dir: ${{needs.determine_execution_values.outputs.tf_action_working_dir}}"
-        terraform apply -auto-approve -var repo_name=${{needs.determine_execution_values.outputs.generated_gh_reponame}}
       shell: bash
+      run: |
+        pwd
+        ls -l
+        terraform apply -auto-approve -var custom_idp="${{env.IDP_TENANT}}"
