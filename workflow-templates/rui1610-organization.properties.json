@@ -1,0 +1,13 @@
+{
+  "name": "Rui Organization Workflow",
+  "description": "Rui Organization starter workflow.",
+  "iconName": "example-icon",
+  "categories": [
+      "SAP BTP"
+  ],
+  "filePatterns": [
+      "package.json$",
+      "^Dockerfile",
+      ".*\\.md$"
+  ]
+}
