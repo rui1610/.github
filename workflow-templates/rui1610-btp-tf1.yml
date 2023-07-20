@@ -1,4 +1,4 @@
-name: Rui Organization CI
+name: TF sample - dev/test/prod setup
 
 on:
   workflow_dispatch:
