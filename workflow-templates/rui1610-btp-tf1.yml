@@ -48,16 +48,6 @@ jobs:
       run: |
         git clone ${{ env.GITHUB_SAMPLES_REPO }} ${{ env.FOLDER_CLONED_CODE }}
         cd ${{ env.FOLDER_CLONED_CODE }}/
-    - name: Add alias provider configuration for defined GLOBALACCOUNT
-      working-directory:  "${{ env.FOLDER_CLONED_CODE }}/${{env.GITHUB_SAMPLES_FOLDER}}"
-      run: |
-        echo '
-          provider "btp" { 
-            alias = "custom"
-            globalaccount = "${{env.GLOBALACCOUNT}}"
-          } >> provider.tf
-        cd ${{ env.FOLDER_CLONED_CODE }}/
-        echo "custom_idp=${{env.IDP_TENANT}}" >  ${{ env.TF_VARS_FILE}}        
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
       with:
