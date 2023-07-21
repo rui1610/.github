@@ -1,7 +1,7 @@
 {
   "name": "SAP BTP Setup: Dev/Test/Prod landscape",
   "description": "Terraform provider for SAP BTP: Create a dev/test/prod landscape",
-  "iconName": "command-palette",
+  "iconName": "action-settings.svg",
   "categories": [
       "SAP BTP"
   ],
