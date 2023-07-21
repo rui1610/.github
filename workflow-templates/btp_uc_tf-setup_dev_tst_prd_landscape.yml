@@ -45,6 +45,12 @@ jobs:
     name: Run Terraform script
     runs-on: ubuntu-latest
     steps:
+    - name: Get current TF provider code and build it
+      run: |
+        git clone https://github.com/SAP/terraform-provider-btp.git tfprovider
+        cd tfprovider
+        make install
+        cp ./assets/provider-config-local.txt ~/.terraformrc
     - name: Get code from External repo
       run: |
         git clone ${{ env.GITHUB_SAMPLES_REPO }} ${{ env.FOLDER_CLONED_CODE }}
