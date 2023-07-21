@@ -4,6 +4,15 @@ on:
   workflow_dispatch:
 
     inputs:
+          UNIT:
+            description: "Your Business unit"
+            required: true
+            type: choice
+            options:
+              - Research
+              - Purchase
+              - Test
+            default: "Research"
           GLOBALACCOUNT:
             description: "Your Global account subdomain"
             required: true
@@ -39,6 +48,15 @@ jobs:
       run: |
         git clone ${{ env.GITHUB_SAMPLES_REPO }} ${{ env.FOLDER_CLONED_CODE }}
         cd ${{ env.FOLDER_CLONED_CODE }}/
+    - name: Add alias provider configuration for defined GLOBALACCOUNT
+      working-directory:  "${{ env.FOLDER_CLONED_CODE }}/${{env.GITHUB_SAMPLES_FOLDER}}"
+      run: |
+        echo '
+          provider "btp" { 
+            alias = "custom"
+            globalaccount = "${{env.GLOBALACCOUNT}}"
+          } >> provider.tf
+        cd ${{ env.FOLDER_CLONED_CODE }}/
         echo "custom_idp=${{env.IDP_TENANT}}" >  ${{ env.TF_VARS_FILE}}        
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
@@ -66,4 +84,4 @@ jobs:
       run: |
         pwd
         ls -l
-        terraform apply -auto-approve -var custom_idp="${{env.IDP_TENANT}}"
+        terraform apply -var custom_idp="${{env.IDP_TENANT}}" -var globalaccount="${{env.GLOBALACCOUNT}}" -var region="${{env.REGION}}" -var unit="${{env.UNIT}}" -auto-approve
