@@ -51,6 +51,8 @@ jobs:
         cd tfprovider
         make install
         cp ./assets/provider-config-local.txt ~/.terraformrc
+        echo "$GOPATH"
+        where go
     - name: Get code from External repo
       run: |
         git clone ${{ env.GITHUB_SAMPLES_REPO }} ${{ env.FOLDER_CLONED_CODE }}
