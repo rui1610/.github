@@ -1,4 +1,4 @@
-name: TF sample - dev/test/prod setup
+name: SAP BTP use case - Setup dev/test/prod landscape with Terraform
 
 on:
   workflow_dispatch:
