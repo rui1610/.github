@@ -1,6 +1,6 @@
 {
-  "name": "SAP BTP Setup: Dev/Test/Prod landscape",
-  "description": "Terraform provider for SAP BTP: Create a dev/test/prod landscape",
+  "name": "SAP BTP Use cases: Dev/Test/Prod landscape",
+  "description": "Setup a dev/test/prod landscape with the Terraform provider for SAP BTP",
   "iconName": "factory",
   "categories": [
       "SAP BTP"
