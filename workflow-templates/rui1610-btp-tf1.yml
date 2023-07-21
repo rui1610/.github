@@ -18,7 +18,6 @@ on:
             required: true
           REGION:
             description: "Region for the sub account"
-            # Ensure to apply change in step2_usecase.json for destination attribute "URL"
             default: "us10"
             required: true
           IDP_TENANT:
@@ -27,17 +26,15 @@ on:
             required: true
 
 env:
-  DIRECTORY_NAME: SAP BTP samples
-  SUBACCOUNT_NAME: Create dev-test-prod landscape
+  # Source repo with code
   GITHUB_SAMPLES_REPO: https://github.com/SAP-samples/btp-terraform-samples
+  # Folder in source repo containing the Terraform scripts
   GITHUB_SAMPLES_FOLDER: released/uc_dev-test-prod
-  ######################################
-  # Don't change these env values below
-  ######################################
   # folder created by GitHub automatically within Docker container)!
   FOLDER_REPO: /__w/
+  # Folder name within container for cloned GitHub repo
   FOLDER_CLONED_CODE: code
-  TF_VARS_FILE: terraform.tfvars
+  # Credentials used by the Terraform script
   BTP_USERNAME: ${{ secrets.BTP_USERNAME }}
   BTP_PASSWORD: ${{ secrets.BTP_PASSWORD }}
   CF_USER: ${{ secrets.BTP_USERNAME }}
@@ -60,16 +57,9 @@ jobs:
       id: init
       working-directory:  "${{ env.FOLDER_CLONED_CODE }}/${{env.GITHUB_SAMPLES_FOLDER}}"
       shell: bash
-      run: |
-        pwd
-        ls -l
-        echo "Running terraform script in dir: ${{ env.FOLDER_CLONED_CODE }}/${{env.GITHUB_SAMPLES_FOLDER}}"
-        terraform init
+      run: terraform init
     - name: Terraform Apply
       id: terraform_apply
       working-directory:  "${{ env.FOLDER_CLONED_CODE }}/${{env.GITHUB_SAMPLES_FOLDER}}"
       shell: bash
-      run: |
-        pwd
-        ls -l
-        terraform apply -var='custom_idp=${{github.event.inputs.IDP_TENANT}}' -var='globalaccount=${{github.event.inputs.GLOBALACCOUNT}}' -var='region=${{github.event.inputs.REGION}}' -var='unit=${{github.event.inputs.UNIT}}' -auto-approve
+      run: terraform apply -var='custom_idp=${{github.event.inputs.IDP_TENANT}}' -var='globalaccount=${{github.event.inputs.GLOBALACCOUNT}}' -var='region=${{github.event.inputs.REGION}}' -var='unit=${{github.event.inputs.UNIT}}' -auto-approve
