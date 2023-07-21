@@ -38,7 +38,6 @@ env:
   FOLDER_REPO: /__w/
   FOLDER_CLONED_CODE: code
   TF_VARS_FILE: terraform.tfvars
-  TARGET_BRANCH: ${{ env.TARGET_BRANCH }}
   BTP_USERNAME: ${{ secrets.BTP_USERNAME }}
   BTP_PASSWORD: ${{ secrets.BTP_PASSWORD }}
   CF_USER: ${{ secrets.BTP_USERNAME }}
