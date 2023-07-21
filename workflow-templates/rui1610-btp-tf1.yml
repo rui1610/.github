@@ -72,4 +72,4 @@ jobs:
       run: |
         pwd
         ls -l
-        terraform apply -var custom_idp="${{github.event.inputs.IDP_TENANT}}" -var globalaccount="${{github.event.inputs.GLOBALACCOUNT}}" -var region="${{github.event.inputs.REGION}}" -var unit="${{github.event.inputs.UNIT}}" -auto-approve
+        terraform apply -var='custom_idp="${{github.event.inputs.IDP_TENANT}}"' -var='globalaccount="${{github.event.inputs.GLOBALACCOUNT}}"' -var='region="${{github.event.inputs.REGION}}"' -var='unit="${{github.event.inputs.UNIT}}"' -auto-approve
